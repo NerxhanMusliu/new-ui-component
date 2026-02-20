@@ -55,3 +55,8 @@ export function useTheme() {
   }
   return ctx;
 }
+
+export function useThemeContext(): Theme {
+  const ctx = useContext(ThemeContext);
+  return ctx?.theme ?? "soft";
+}
