@@ -78,12 +78,12 @@ export default function ComponentsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
       {/* Header */}
-      <header className="flex h-16 items-center justify-between bg-[#0A0A14] px-6 text-white">
+      <header className="flex h-16 items-center justify-between bg-header px-6 text-white">
         <div className="flex items-center gap-4">
           <nav className="flex items-center gap-2 text-sm text-white/60">
             <Link
               href="/"
-              className="font-semibold text-[#4B9EFF] hover:text-[#4B9EFF]/80"
+              className="font-semibold text-brand hover:text-brand/80"
             >
               HubSync
             </Link>
@@ -186,17 +186,17 @@ export default function ComponentsPage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
                     <Avatar size="sm">
-                      <AvatarFallback className="bg-[#1B4DDB] text-white text-[10px]">
+                      <AvatarFallback className="bg-primary text-white text-[10px]">
                         SM
                       </AvatarFallback>
                     </Avatar>
                     <Avatar>
-                      <AvatarFallback className="bg-[#1B4DDB] text-white text-xs">
+                      <AvatarFallback className="bg-primary text-white text-xs">
                         MD
                       </AvatarFallback>
                     </Avatar>
                     <Avatar size="lg">
-                      <AvatarFallback className="bg-[#1B4DDB] text-white text-sm">
+                      <AvatarFallback className="bg-primary text-white text-sm">
                         LG
                       </AvatarFallback>
                     </Avatar>
@@ -208,7 +208,7 @@ export default function ComponentsPage() {
                     <AvatarGroup>
                       {["JD", "SK", "AB", "MR"].map((initials) => (
                         <Avatar key={initials}>
-                          <AvatarFallback className="bg-[#1B4DDB] text-white text-xs">
+                          <AvatarFallback className="bg-primary text-white text-xs">
                             {initials}
                           </AvatarFallback>
                         </Avatar>
