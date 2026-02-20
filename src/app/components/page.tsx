@@ -80,14 +80,11 @@ export default function ComponentsPage() {
       {/* Header */}
       <header className="flex h-16 items-center justify-between bg-header px-6 text-white">
         <div className="flex items-center gap-4">
+          <Link href="/" className="hover:opacity-80">
+            <img src="/hubsync-logo.svg" alt="HubSync" className="h-6" />
+          </Link>
+          <div className="h-5 w-px bg-white/20" />
           <nav className="flex items-center gap-2 text-sm text-white/60">
-            <Link
-              href="/"
-              className="font-semibold text-brand hover:text-brand/80"
-            >
-              HubSync
-            </Link>
-            <ChevronRight className="h-3.5 w-3.5" />
             <span className="text-white font-medium">Component Library</span>
           </nav>
         </div>

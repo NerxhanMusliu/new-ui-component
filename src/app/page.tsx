@@ -301,9 +301,9 @@ export default function Home() {
                 </TooltipTrigger>
                 <TooltipContent>Navigation menu</TooltipContent>
               </Tooltip>
+              <img src="/hubsync-logo.svg" alt="HubSync" className="h-6" />
+              <div className="h-5 w-px bg-white/20" />
               <nav className="flex items-center gap-2 text-sm text-white/60">
-                <span className="font-semibold text-brand">HubSync</span>
-                <ChevronRight className="h-3.5 w-3.5" />
                 <span>My Tasks</span>
                 <ChevronRight className="h-3.5 w-3.5" />
                 <span className="font-medium text-white">
