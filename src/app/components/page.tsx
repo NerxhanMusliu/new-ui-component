@@ -44,14 +44,34 @@ import {
   CheckboxDemo,
   SwitchDemo,
 } from "./component-preview-client";
+import {
+  ColorsSection,
+  TypographySection,
+  SpacingSection,
+  RadiusSection,
+} from "./design-tokens-client";
 
-const sections = [
-  { id: "general", label: "General" },
-  { id: "form-controls", label: "Form Controls" },
-  { id: "data-display", label: "Data Display" },
-  { id: "feedback", label: "Feedback" },
-  { id: "overlays", label: "Overlays" },
-  { id: "navigation", label: "Navigation" },
+const sidebarGroups = [
+  {
+    heading: "Foundations",
+    items: [
+      { id: "colors", label: "Colors" },
+      { id: "typography", label: "Typography" },
+      { id: "spacing", label: "Spacing" },
+      { id: "radius", label: "Radius" },
+    ],
+  },
+  {
+    heading: "Components",
+    items: [
+      { id: "general", label: "General" },
+      { id: "form-controls", label: "Form Controls" },
+      { id: "data-display", label: "Data Display" },
+      { id: "feedback", label: "Feedback" },
+      { id: "overlays", label: "Overlays" },
+      { id: "navigation", label: "Navigation" },
+    ],
+  },
 ];
 
 function ComponentShowcase({
@@ -78,7 +98,7 @@ export default function ComponentsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background font-sans">
       {/* Header */}
-      <header className="flex h-16 items-center justify-between bg-header px-6 text-white">
+      <header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-header px-6 text-white">
         <div className="flex items-center gap-4">
           <Link href="/" className="hover:opacity-80">
             <img src="/hubsync-logo.svg" alt="HubSync" className="h-6" />
@@ -95,23 +115,73 @@ export default function ComponentsPage() {
         <div className="flex flex-1">
           {/* Sidebar */}
           <nav className="sticky top-0 hidden w-56 shrink-0 self-start border-r p-6 lg:block">
-            <ul className="space-y-1">
-              {sections.map((s) => (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  >
-                    {s.label}
-                  </a>
-                </li>
+            <div className="space-y-6">
+              {sidebarGroups.map((group) => (
+                <div key={group.heading}>
+                  <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    {group.heading}
+                  </p>
+                  <ul className="space-y-1">
+                    {group.items.map((s) => (
+                      <li key={s.id}>
+                        <a
+                          href={`#${s.id}`}
+                          className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        >
+                          {s.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           </nav>
 
           {/* Main content */}
           <main className="flex-1 overflow-auto">
             <div className="mx-auto max-w-4xl space-y-16 px-8 py-10">
+            {/* ── Design Tokens ── */}
+            <section id="colors" className="space-y-8">
+              <h2 className="text-lg font-bold">Colors</h2>
+              <ComponentShowcase
+                name="Color Tokens"
+                description="All design system color tokens with their current resolved values."
+              >
+                <ColorsSection />
+              </ComponentShowcase>
+            </section>
+
+            <section id="typography" className="space-y-8">
+              <h2 className="text-lg font-bold">Typography</h2>
+              <ComponentShowcase
+                name="Type Scale"
+                description="Font families, sizes, and weights used across the system."
+              >
+                <TypographySection />
+              </ComponentShowcase>
+            </section>
+
+            <section id="spacing" className="space-y-8">
+              <h2 className="text-lg font-bold">Spacing</h2>
+              <ComponentShowcase
+                name="Spacing Scale"
+                description="Tailwind spacing values used for margins, padding, and gaps."
+              >
+                <SpacingSection />
+              </ComponentShowcase>
+            </section>
+
+            <section id="radius" className="space-y-8">
+              <h2 className="text-lg font-bold">Radius</h2>
+              <ComponentShowcase
+                name="Border Radius"
+                description="Radius tokens applied to corners — Edge theme uses 0 for sharp edges."
+              >
+                <RadiusSection />
+              </ComponentShowcase>
+            </section>
+
             {/* ── General ── */}
             <section id="general" className="space-y-8">
               <h2 className="text-lg font-bold">General</h2>

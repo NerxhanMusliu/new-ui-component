@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
@@ -10,7 +12,11 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card"
       className={cn(
         "bg-card text-card-foreground flex flex-col gap-6 border py-6",
-        theme === "edge" ? "rounded-none" : "rounded-xl shadow-sm",
+        theme === "edge"
+          ? "rounded-none"
+          : theme === "core"
+            ? "rounded-lg"
+            : "rounded-xl shadow-sm",
         className
       )}
       {...props}

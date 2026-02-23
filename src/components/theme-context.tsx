@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-export type Theme = "soft" | "edge";
+export type Theme = "soft" | "edge" | "core";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -24,6 +24,13 @@ export const edgeOverrides: Record<string, string> = {
   "--accent": "#DAE3F3",
   "--accent-foreground": "#122757",
   "--destructive": "#C9243A",
+  "--destructive-foreground": "#FFFFFF",
+  "--success": "#15803D",
+  "--success-foreground": "#FFFFFF",
+  "--warning": "#D97706",
+  "--warning-foreground": "#FFFFFF",
+  "--info": "#2563EB",
+  "--info-foreground": "#FFFFFF",
   "--border": "#C2CCE0",
   "--input": "#C2CCE0",
   "--ring": "#1D4ED8",
@@ -37,13 +44,52 @@ export const edgeOverrides: Record<string, string> = {
   "--font-inter": "var(--font-jetbrains), monospace",
 };
 
+export const coreOverrides: Record<string, string> = {
+  "--radius": "0.375rem",
+  "--background": "#FAFAFA",
+  "--foreground": "#172B4D",
+  "--primary": "#0052CC",
+  "--primary-foreground": "#FFFFFF",
+  "--secondary": "#F0F1F4",
+  "--secondary-foreground": "#172B4D",
+  "--muted": "#F0F1F4",
+  "--muted-foreground": "#6B778C",
+  "--accent": "#E9F2FF",
+  "--accent-foreground": "#0052CC",
+  "--destructive": "#982222",
+  "--destructive-foreground": "#FFFFFF",
+  "--success": "#1B6B3A",
+  "--success-foreground": "#FFFFFF",
+  "--warning": "#92600F",
+  "--warning-foreground": "#FFFFFF",
+  "--info": "#0052CC",
+  "--info-foreground": "#FFFFFF",
+  "--border": "#C1C7D0",
+  "--input": "#C1C7D0",
+  "--ring": "#0052CC",
+  "--card": "#FFFFFF",
+  "--card-foreground": "#172B4D",
+  "--popover": "#FFFFFF",
+  "--popover-foreground": "#172B4D",
+  "--header": "#0747A6",
+  "--header-foreground": "#FFFFFF",
+  "--brand": "#2684FF",
+  "--chart-1": "#0052CC",
+  "--chart-2": "#2684FF",
+  "--chart-3": "#79B8FF",
+  "--chart-4": "#0747A6",
+  "--chart-5": "#4C9AFF",
+  "--font-inter": "var(--font-ibm-plex), sans-serif",
+};
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("soft");
-  const isEdge = theme === "edge";
+  const overrides =
+    theme === "edge" ? edgeOverrides : theme === "core" ? coreOverrides : undefined;
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className="font-sans" style={isEdge ? edgeOverrides : undefined}>{children}</div>
+      <div className="font-sans" style={overrides}>{children}</div>
     </ThemeContext.Provider>
   );
 }

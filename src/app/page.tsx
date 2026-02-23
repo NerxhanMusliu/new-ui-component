@@ -287,7 +287,7 @@ export default function Home() {
       <TooltipProvider>
         <div className="flex min-h-screen flex-col bg-background font-sans">
           {/* ── Top Navigation Bar ── */}
-          <header className="flex h-16 items-center justify-between bg-header px-6 text-white">
+          <header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-header px-6 text-white">
             <div className="flex items-center gap-4">
               <Tooltip>
                 <TooltipTrigger asChild>
