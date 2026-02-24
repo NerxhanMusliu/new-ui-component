@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,6 +19,11 @@ const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
 });
 
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "HubSync - Working TB",
   description: "HubSync Tax Provision Dashboard",
@@ -30,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${ibmPlexSans.variable} antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${ibmPlexSans.variable} ${geist.variable} antialiased`}>
         {children}
       </body>
     </html>

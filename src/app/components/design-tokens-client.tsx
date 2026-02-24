@@ -166,7 +166,7 @@ function Swatch({
 export function TypographySection() {
   const { theme } = useTheme();
   const fontLabel =
-    theme === "edge" ? "JetBrains Mono" : theme === "core" ? "IBM Plex Sans" : "Inter";
+    theme === "edge" ? "JetBrains Mono" : theme === "core" ? "IBM Plex Sans" : theme === "flux" ? "Geist" : "Inter";
 
   return (
     <div className="space-y-6">
@@ -282,7 +282,7 @@ export function RadiusSection() {
 
   return (
     <div className="space-y-4">
-      {theme !== "soft" && (
+      {theme !== "soft" && theme !== "flux" && (
         <div className="rounded-md bg-muted/50 px-4 py-2 text-sm">
           {theme === "edge" ? (
             <>

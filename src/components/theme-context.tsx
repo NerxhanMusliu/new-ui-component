@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-export type Theme = "soft" | "edge" | "core";
+export type Theme = "soft" | "edge" | "core" | "flux";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -82,10 +82,55 @@ export const coreOverrides: Record<string, string> = {
   "--font-inter": "var(--font-ibm-plex), sans-serif",
 };
 
+export const fluxOverrides: Record<string, string> = {
+  // Core's colors
+  "--background": "#FAFAFA",
+  "--foreground": "#172B4D",
+  "--primary": "#0052CC",
+  "--primary-foreground": "#FFFFFF",
+  "--secondary": "#F0F1F4",
+  "--secondary-foreground": "#172B4D",
+  "--muted": "#F0F1F4",
+  "--muted-foreground": "#6B778C",
+  "--accent": "#E9F2FF",
+  "--accent-foreground": "#0052CC",
+  "--destructive": "#D14343",
+  "--destructive-foreground": "#FFFFFF",
+  "--success": "#1F9D63",
+  "--success-foreground": "#FFFFFF",
+  "--warning": "#C88100",
+  "--warning-foreground": "#FFFFFF",
+  "--info": "#0F7A8C",
+  "--info-foreground": "#FFFFFF",
+  "--border": "#C1C7D0",
+  "--input": "#C1C7D0",
+  "--ring": "#0052CC",
+  "--card": "#FFFFFF",
+  "--card-foreground": "#172B4D",
+  "--popover": "#FFFFFF",
+  "--popover-foreground": "#172B4D",
+  "--header": "#0747A6",
+  "--header-foreground": "#FFFFFF",
+  "--brand": "#2684FF",
+  "--chart-1": "#0052CC",
+  "--chart-2": "#2684FF",
+  "--chart-3": "#79B8FF",
+  "--chart-4": "#0747A6",
+  "--chart-5": "#4C9AFF",
+  // Soft's radius (no --radius override = uses :root 0.625rem)
+  "--font-inter": "var(--font-geist), sans-serif",
+};
+
+const themeOverrides: Record<Theme, Record<string, string> | undefined> = {
+  soft: undefined,
+  edge: edgeOverrides,
+  core: coreOverrides,
+  flux: fluxOverrides,
+};
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("soft");
-  const overrides =
-    theme === "edge" ? edgeOverrides : theme === "core" ? coreOverrides : undefined;
+  const overrides = themeOverrides[theme];
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

@@ -4,7 +4,7 @@ import { type ReactNode } from "react";
 import { ThemeProvider, useTheme } from "@/components/theme-context";
 import { Button } from "@/components/ui/button";
 
-const themes = ["soft", "edge", "core"] as const;
+const themes = ["soft", "edge", "core", "flux"] as const;
 
 function StyleToggleHeader() {
   const { theme, setTheme } = useTheme();

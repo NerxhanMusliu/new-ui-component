@@ -16,7 +16,9 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
           ? "rounded-none"
           : theme === "core"
             ? "rounded-lg"
-            : "rounded-xl shadow-sm",
+            : theme === "flux"
+              ? "rounded-xl"
+              : "rounded-xl shadow-sm",
         className
       )}
       {...props}

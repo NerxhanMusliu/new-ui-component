@@ -3,7 +3,7 @@
 import { useTheme } from "./theme-context";
 import { Button } from "@/components/ui/button";
 
-const themes = ["soft", "edge", "core"] as const;
+const themes = ["soft", "edge", "core", "flux"] as const;
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
