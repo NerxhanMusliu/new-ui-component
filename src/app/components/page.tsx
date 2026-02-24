@@ -230,16 +230,16 @@ export default function ComponentsPage() {
                     <Badge variant="outline">Outline</Badge>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <Badge className="bg-green-100 text-green-700 border-transparent">
+                    <Badge className="bg-success/10 text-success border-transparent">
                       Approved
                     </Badge>
-                    <Badge className="bg-yellow-100 text-yellow-700 border-transparent">
+                    <Badge className="bg-warning/10 text-warning border-transparent">
                       Pending
                     </Badge>
-                    <Badge className="bg-red-100 text-red-700 border-transparent">
+                    <Badge className="bg-destructive/10 text-destructive border-transparent">
                       Rejected
                     </Badge>
-                    <Badge className="bg-blue-100 text-blue-700 border-transparent">
+                    <Badge className="bg-info/10 text-info border-transparent">
                       In Review
                     </Badge>
                   </div>
@@ -498,7 +498,7 @@ export default function ComponentsPage() {
                         Net Taxable Income
                       </p>
                       <p className="mt-2 text-2xl font-bold">$16,464</p>
-                      <p className="mt-1 text-xs text-green-600">
+                      <p className="mt-1 text-xs text-success">
                         +12.3% from prior year
                       </p>
                     </CardContent>

@@ -213,19 +213,19 @@ const reviewNotes = [
 const statusConfig = {
   approved: {
     label: "Approved",
-    className: "bg-green-100 text-green-700 border-transparent",
+    className: "bg-success/10 text-success border-transparent",
   },
   pending: {
     label: "Pending",
-    className: "bg-yellow-100 text-yellow-700 border-transparent",
+    className: "bg-warning/10 text-warning border-transparent",
   },
   "in-review": {
     label: "In Review",
-    className: "bg-blue-100 text-blue-700 border-transparent",
+    className: "bg-info/10 text-info border-transparent",
   },
   rejected: {
     label: "Rejected",
-    className: "bg-red-100 text-red-700 border-transparent",
+    className: "bg-destructive/10 text-destructive border-transparent",
   },
 };
 
@@ -540,7 +540,7 @@ export default function Home() {
                   Net Taxable Income
                 </p>
                 <p className="mt-2 text-2xl font-bold">$16,464</p>
-                <p className="mt-1 text-xs text-green-600">
+                <p className="mt-1 text-xs text-success">
                   +12.3% from prior year
                 </p>
               </CardContent>
@@ -570,14 +570,14 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground">
                   Total Adjustments
                 </p>
-                <p className="mt-2 text-2xl font-bold text-green-600">
+                <p className="mt-2 text-2xl font-bold text-success">
                   $24,318
                 </p>
                 <div className="mt-2 flex items-center gap-2">
-                  <Badge className="bg-green-100 text-green-700 border-transparent">
+                  <Badge className="bg-success/10 text-success border-transparent">
                     {approvedCount} Approved
                   </Badge>
-                  <Badge className="bg-yellow-100 text-yellow-700 border-transparent">
+                  <Badge className="bg-warning/10 text-warning border-transparent">
                     {tableData.length - approvedCount} Pending
                   </Badge>
                 </div>
@@ -1010,7 +1010,7 @@ export default function Home() {
 
               <TabsContent value="approved" className="mt-4">
                 <div className="rounded-lg border p-8 text-center">
-                  <CheckCircle2 className="mx-auto h-10 w-10 text-green-500" />
+                  <CheckCircle2 className="mx-auto h-10 w-10 text-success" />
                   <p className="mt-3 text-sm font-medium">
                     {approvedCount} accounts approved
                   </p>
