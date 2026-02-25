@@ -58,6 +58,8 @@ import {
   SpacingSection,
   RadiusSection,
 } from "./design-tokens-client";
+import { ComponentDoc } from "./component-doc";
+import { componentDocs } from "./component-data";
 
 const sidebarGroups = [
   {
@@ -86,18 +88,21 @@ function ComponentShowcase({
   name,
   description,
   children,
+  doc,
 }: {
   name: string;
   description: string;
   children: React.ReactNode;
+  doc?: React.ReactNode;
 }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 pb-10 pt-2 first:pt-0">
       <div>
         <h3 className="text-sm font-semibold">{name}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
       <div className="rounded-lg border bg-background p-6">{children}</div>
+      {doc}
     </div>
   );
 }
@@ -191,12 +196,13 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── General ── */}
-            <section id="general" className="space-y-8">
+            <section id="general" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">General</h2>
 
               <ComponentShowcase
                 name="Button"
                 description="Primary actions and interactions."
+                doc={<ComponentDoc {...componentDocs.Button} />}
               >
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center gap-3">
@@ -229,6 +235,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Badge"
                 description="Status indicators and labels."
+                doc={<ComponentDoc {...componentDocs.Badge} />}
               >
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center gap-3">
@@ -257,6 +264,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Avatar"
                 description="User representations with initials and grouping."
+                doc={<ComponentDoc {...componentDocs.Avatar} />}
               >
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
@@ -296,6 +304,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Separator"
                 description="Visual dividers between content."
+                doc={<ComponentDoc {...componentDocs.Separator} />}
               >
                 <div className="space-y-4">
                   <div>
@@ -321,12 +330,13 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Form Controls ── */}
-            <section id="form-controls" className="space-y-8">
+            <section id="form-controls" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Form Controls</h2>
 
               <ComponentShowcase
                 name="Input"
                 description="Text input fields with variants."
+                doc={<ComponentDoc {...componentDocs.Input} />}
               >
                 <div className="grid gap-4 max-w-sm">
                   <div className="grid gap-2">
@@ -361,6 +371,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Textarea"
                 description="Multi-line text input."
+                doc={<ComponentDoc {...componentDocs.Textarea} />}
               >
                 <div className="max-w-sm grid gap-2">
                   <Label htmlFor="textarea-demo">Notes</Label>
@@ -374,6 +385,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Select"
                 description="Dropdown selection menus."
+                doc={<ComponentDoc {...componentDocs.Select} />}
               >
                 <SelectDemo />
               </ComponentShowcase>
@@ -381,6 +393,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Checkbox"
                 description="Multi-select checkboxes with labels."
+                doc={<ComponentDoc {...componentDocs.Checkbox} />}
               >
                 <CheckboxDemo />
               </ComponentShowcase>
@@ -388,6 +401,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Switch"
                 description="Toggle switches for boolean settings."
+                doc={<ComponentDoc {...componentDocs.Switch} />}
               >
                 <div className="max-w-sm">
                   <SwitchDemo />
@@ -396,12 +410,13 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Data Display ── */}
-            <section id="data-display" className="space-y-8">
+            <section id="data-display" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Data Display</h2>
 
               <ComponentShowcase
                 name="Table"
                 description="Structured data in rows and columns."
+                doc={<ComponentDoc {...componentDocs.Table} />}
               >
                 <div className="rounded-lg border">
                   <Table>
@@ -484,6 +499,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Card"
                 description="Content containers with optional headers and footers."
+                doc={<ComponentDoc {...componentDocs.Card} />}
               >
                 <div className="grid gap-6 sm:grid-cols-2">
                   <Card>
@@ -536,12 +552,13 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Feedback ── */}
-            <section id="feedback" className="space-y-8">
+            <section id="feedback" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Feedback</h2>
 
               <ComponentShowcase
                 name="Alert"
                 description="Contextual messages for user feedback."
+                doc={<ComponentDoc {...componentDocs.Alert} />}
               >
                 <div className="space-y-4">
                   <Alert>
@@ -564,6 +581,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Progress"
                 description="Visual progress indicators."
+                doc={<ComponentDoc {...componentDocs.Progress} />}
               >
                 <div className="space-y-6">
                   {[
@@ -587,12 +605,13 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Overlays ── */}
-            <section id="overlays" className="space-y-8">
+            <section id="overlays" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Overlays</h2>
 
               <ComponentShowcase
                 name="Dialog"
                 description="Modal dialog for focused interactions."
+                doc={<ComponentDoc {...componentDocs.Dialog} />}
               >
                 <DialogDemo />
               </ComponentShowcase>
@@ -600,6 +619,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Sheet"
                 description="Slide-out panel for secondary content."
+                doc={<ComponentDoc {...componentDocs.Sheet} />}
               >
                 <SheetDemo />
               </ComponentShowcase>
@@ -607,6 +627,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Dropdown Menu"
                 description="Contextual action menus."
+                doc={<ComponentDoc {...componentDocs.DropdownMenu} />}
               >
                 <DropdownMenuDemo />
               </ComponentShowcase>
@@ -614,18 +635,20 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Tooltip"
                 description="Informational popups on hover."
+                doc={<ComponentDoc {...componentDocs.Tooltip} />}
               >
                 <TooltipDemo />
               </ComponentShowcase>
             </section>
 
             {/* ── Navigation ── */}
-            <section id="navigation" className="space-y-8">
+            <section id="navigation" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Navigation</h2>
 
               <ComponentShowcase
                 name="Breadcrumb"
                 description="Hierarchical navigation showing the current page location."
+                doc={<ComponentDoc {...componentDocs.Breadcrumb} />}
               >
                 <div className="space-y-6">
                   <div>
@@ -679,6 +702,7 @@ export default function ComponentsPage() {
               <ComponentShowcase
                 name="Tabs"
                 description="Tabbed navigation with default and line variants."
+                doc={<ComponentDoc {...componentDocs.Tabs} />}
               >
                 <div className="space-y-8">
                   <div>
