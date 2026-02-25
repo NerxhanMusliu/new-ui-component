@@ -83,17 +83,17 @@ export const coreOverrides: Record<string, string> = {
 };
 
 export const fluxOverrides: Record<string, string> = {
-  // Core's colors
+  // Core's colors with Soft's primary
   "--background": "#FAFAFA",
   "--foreground": "#172B4D",
-  "--primary": "#0052CC",
+  "--primary": "#1B4DDB",
   "--primary-foreground": "#FFFFFF",
   "--secondary": "#F0F1F4",
   "--secondary-foreground": "#172B4D",
   "--muted": "#F0F1F4",
   "--muted-foreground": "#6B778C",
   "--accent": "#E9F2FF",
-  "--accent-foreground": "#0052CC",
+  "--accent-foreground": "#1B4DDB",
   "--destructive": "#D14343",
   "--destructive-foreground": "#FFFFFF",
   "--success": "#1F9D63",
@@ -104,19 +104,19 @@ export const fluxOverrides: Record<string, string> = {
   "--info-foreground": "#FFFFFF",
   "--border": "#C1C7D0",
   "--input": "#C1C7D0",
-  "--ring": "#0052CC",
+  "--ring": "#1B4DDB",
   "--card": "#FFFFFF",
   "--card-foreground": "#172B4D",
   "--popover": "#FFFFFF",
   "--popover-foreground": "#172B4D",
-  "--header": "#0747A6",
+  "--header": "#1B4DDB",
   "--header-foreground": "#FFFFFF",
-  "--brand": "#2684FF",
-  "--chart-1": "#0052CC",
-  "--chart-2": "#2684FF",
-  "--chart-3": "#79B8FF",
-  "--chart-4": "#0747A6",
-  "--chart-5": "#4C9AFF",
+  "--brand": "#93C5FD",
+  "--chart-1": "#1B4DDB",
+  "--chart-2": "#4B9EFF",
+  "--chart-3": "#93C5FD",
+  "--chart-4": "#1E40AF",
+  "--chart-5": "#3B82F6",
   // Soft's radius (no --radius override = uses :root 0.625rem)
   "--font-sans": "var(--font-geist), sans-serif",
 };
