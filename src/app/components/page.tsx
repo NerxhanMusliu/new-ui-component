@@ -36,6 +36,14 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
   DialogDemo,
   SheetDemo,
   DropdownMenuDemo,
@@ -96,9 +104,9 @@ function ComponentShowcase({
 
 export default function ComponentsPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background font-sans">
+    <div className="flex h-screen flex-col bg-background font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 flex h-16 items-center justify-between bg-header px-6 text-white">
+      <header className="shrink-0 z-50 flex h-16 items-center justify-between bg-header px-6 text-white">
         <div className="flex items-center gap-4">
           <Link href="/" className="hover:opacity-80">
             <img src="/hubsync-logo.svg" alt="HubSync" className="h-6" />
@@ -112,9 +120,9 @@ export default function ComponentsPage() {
 
       <StyleToggleProvider>
         {/* Two-column layout */}
-        <div className="flex flex-1">
+        <div className="flex flex-1 min-h-0">
           {/* Sidebar */}
-          <nav className="sticky top-0 hidden w-56 shrink-0 self-start border-r p-6 lg:block">
+          <nav className="hidden w-56 shrink-0 overflow-y-auto border-r p-6 lg:block">
             <div className="space-y-6">
               {sidebarGroups.map((group) => (
                 <div key={group.heading}>
@@ -139,7 +147,7 @@ export default function ComponentsPage() {
           </nav>
 
           {/* Main content */}
-          <main className="flex-1 overflow-auto">
+          <main className="flex-1 overflow-y-auto">
             <div className="mx-auto max-w-4xl space-y-16 px-8 py-10">
             {/* ── Design Tokens ── */}
             <section id="colors" className="space-y-8">
@@ -614,6 +622,59 @@ export default function ComponentsPage() {
             {/* ── Navigation ── */}
             <section id="navigation" className="space-y-8">
               <h2 className="text-lg font-bold">Navigation</h2>
+
+              <ComponentShowcase
+                name="Breadcrumb"
+                description="Hierarchical navigation showing the current page location."
+              >
+                <div className="space-y-6">
+                  <div>
+                    <p className="mb-3 text-sm text-muted-foreground">Default</p>
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">Entities</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Acme Corp</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                  </div>
+                  <Separator />
+                  <div>
+                    <p className="mb-3 text-sm text-muted-foreground">Longer path</p>
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">Returns</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">2024</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="#">Acme Corp</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage>Adjustments</BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                  </div>
+                </div>
+              </ComponentShowcase>
 
               <ComponentShowcase
                 name="Tabs"

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export type Theme = "soft" | "edge" | "core" | "flux";
 
@@ -41,7 +41,7 @@ export const edgeOverrides: Record<string, string> = {
   "--header": "#122757",
   "--header-foreground": "#FFFFFF",
   "--brand": "#1D4ED8",
-  "--font-inter": "var(--font-jetbrains), monospace",
+  "--font-sans": "var(--font-jetbrains), monospace",
 };
 
 export const coreOverrides: Record<string, string> = {
@@ -79,7 +79,7 @@ export const coreOverrides: Record<string, string> = {
   "--chart-3": "#79B8FF",
   "--chart-4": "#0747A6",
   "--chart-5": "#4C9AFF",
-  "--font-inter": "var(--font-ibm-plex), sans-serif",
+  "--font-sans": "var(--font-ibm-plex), sans-serif",
 };
 
 export const fluxOverrides: Record<string, string> = {
@@ -118,7 +118,7 @@ export const fluxOverrides: Record<string, string> = {
   "--chart-4": "#0747A6",
   "--chart-5": "#4C9AFF",
   // Soft's radius (no --radius override = uses :root 0.625rem)
-  "--font-inter": "var(--font-geist), sans-serif",
+  "--font-sans": "var(--font-geist), sans-serif",
 };
 
 const themeOverrides: Record<Theme, Record<string, string> | undefined> = {
@@ -129,12 +129,29 @@ const themeOverrides: Record<Theme, Record<string, string> | undefined> = {
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("soft");
+  const [theme, setTheme] = useState<Theme>("flux");
   const overrides = themeOverrides[theme];
+
+  useEffect(() => {
+    const root = document.body;
+    // Clear previous theme overrides
+    const allKeys = new Set(
+      Object.values(themeOverrides)
+        .filter(Boolean)
+        .flatMap((o) => Object.keys(o!))
+    );
+    allKeys.forEach((key) => root.style.removeProperty(key));
+    // Apply current theme overrides
+    if (overrides) {
+      Object.entries(overrides).forEach(([key, value]) => {
+        root.style.setProperty(key, value);
+      });
+    }
+  }, [overrides]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className="font-sans" style={overrides}>{children}</div>
+      <div className="font-sans flex flex-col flex-1 min-h-0">{children}</div>
     </ThemeContext.Provider>
   );
 }

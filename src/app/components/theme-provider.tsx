@@ -4,13 +4,13 @@ import { type ReactNode } from "react";
 import { ThemeProvider, useTheme } from "@/components/theme-context";
 import { Button } from "@/components/ui/button";
 
-const themes = ["soft", "edge", "core", "flux"] as const;
+const themes = ["flux", "core", "soft", "edge"] as const;
 
 function StyleToggleHeader() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="sticky top-16 z-40 flex items-center justify-between border-b bg-background px-8 py-6">
+    <div className="shrink-0 z-40 flex items-center justify-between border-b bg-background px-8 py-6">
       <div>
         <h1 className="text-2xl font-bold">Component Library</h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -18,8 +18,8 @@ function StyleToggleHeader() {
         </p>
       </div>
 
-      {/* Toggle */}
-      <div className="flex items-center gap-2">
+      {/* Toggle - hidden while only Flux is active */}
+      {/* <div className="flex items-center gap-2">
         {themes.map((t) => (
           <Button
             key={t}
@@ -30,7 +30,7 @@ function StyleToggleHeader() {
             {t.charAt(0).toUpperCase() + t.slice(1)}
           </Button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -38,8 +38,10 @@ function StyleToggleHeader() {
 export function StyleToggleProvider({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <StyleToggleHeader />
-      {children}
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <StyleToggleHeader />
+        {children}
+      </div>
     </ThemeProvider>
   );
 }
