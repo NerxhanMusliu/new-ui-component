@@ -14,6 +14,26 @@ export interface ComponentDocData {
   code: string;
 }
 
+function renderCodeWithLinks(code: string) {
+  const urlRegex = /(https?:\/\/[^\s)]+)/g;
+  const parts = code.split(urlRegex);
+  return parts.map((part, i) =>
+    urlRegex.test(part) ? (
+      <a
+        key={i}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline underline-offset-2 hover:text-primary/80"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
 export function ComponentDoc({ props, code }: ComponentDocData) {
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -87,7 +107,7 @@ export function ComponentDoc({ props, code }: ComponentDocData) {
               {copied ? "Copied!" : "Copy"}
             </button>
             <pre className="overflow-x-auto rounded-lg border bg-muted/30 p-4 text-xs leading-relaxed">
-              <code className="font-mono">{code}</code>
+              <code className="font-mono">{renderCodeWithLinks(code)}</code>
             </pre>
           </div>
         )}
