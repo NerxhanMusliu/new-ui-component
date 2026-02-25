@@ -8,6 +8,11 @@ export const componentDocs: Record<string, ComponentDocData> = {
       { name: "disabled", type: "boolean", default: "false", description: "Disables the button." },
       { name: "asChild", type: "boolean", default: "false", description: "Render as a child element (Slot)." },
     ],
+    changes: [
+      "Added xs size and icon-xs/icon-sm/icon-lg icon sizes",
+      "Auto-sizes child SVGs based on button size",
+      "Added data-variant and data-size attributes for external styling",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/button
 import { Button } from "@/components/ui/button"
 
@@ -37,6 +42,11 @@ import { Button } from "@/components/ui/button"
     props: [
       { name: "variant", type: '"default" | "secondary" | "destructive" | "outline"', default: '"default"', description: "Visual style of the badge." },
     ],
+    changes: [
+      "Auto-sizes child SVGs and disables pointer events on them",
+      "Uses rounded-full pill shape instead of rounded-md",
+      "Added transition for color and box-shadow",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/badge
 import { Badge } from "@/components/ui/badge"
 
@@ -54,6 +64,11 @@ import { Badge } from "@/components/ui/badge"
   Avatar: {
     props: [
       { name: "size", type: '"default" | "sm" | "lg"', default: '"default"', description: "Size of the avatar." },
+    ],
+    changes: [
+      "Added size prop (sm, default, lg) — not in stock shadcn",
+      "Added AvatarGroup and AvatarGroupCount sub-components",
+      "Added AvatarBadge for status indicators with ring styling",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/avatar
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar"
@@ -87,6 +102,9 @@ import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar"
       { name: "orientation", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "Direction of the separator." },
       { name: "decorative", type: "boolean", default: "true", description: "Whether the separator is purely decorative." },
     ],
+    changes: [
+      "No significant changes — uses stock shadcn implementation with semantic bg-border token",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/separator
 import { Separator } from "@/components/ui/separator"
 
@@ -106,6 +124,11 @@ import { Separator } from "@/components/ui/separator"
       { name: "type", type: "string", default: '"text"', description: "HTML input type." },
       { name: "placeholder", type: "string", description: "Placeholder text." },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the input." },
+    ],
+    changes: [
+      "Theme-aware: conditionally applies shadow-xs (disabled in Flux theme)",
+      "Added dark mode background (dark:bg-input/30)",
+      "Enhanced focus and aria-invalid styling",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/input
 import { Input } from "@/components/ui/input"
@@ -128,6 +151,11 @@ import { Label } from "@/components/ui/label"
       { name: "placeholder", type: "string", description: "Placeholder text." },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the textarea." },
     ],
+    changes: [
+      "Theme-aware: conditionally applies shadow-xs (disabled in Flux theme)",
+      "Added dark mode background (dark:bg-input/30)",
+      "Uses field-sizing-content for auto-height",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/textarea
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -142,6 +170,10 @@ import { Label } from "@/components/ui/label"
     props: [
       { name: "htmlFor", type: "string", description: "ID of the associated form element." },
     ],
+    changes: [
+      "Added flex layout with gap-2 for inline content",
+      "Handles disabled state via group-data-[disabled=true]",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/label
 import { Label } from "@/components/ui/label"
 
@@ -154,6 +186,11 @@ import { Label } from "@/components/ui/label"
       { name: "onValueChange", type: "(value: string) => void", description: "Called when the selected value changes." },
       { name: "defaultValue", type: "string", description: "Default value for uncontrolled usage." },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the select." },
+    ],
+    changes: [
+      "Added size prop (sm, default) on SelectTrigger",
+      "Theme-aware: conditionally applies shadow-xs (disabled in Flux theme)",
+      "Added custom scroll up/down buttons with chevron icons",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/select
 import {
@@ -179,6 +216,10 @@ import {
       { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the checked state changes." },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the checkbox." },
     ],
+    changes: [
+      "Added shadow-xs (stock shadcn has no shadow)",
+      "Added dark mode background (dark:bg-input/30)",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/checkbox
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
@@ -195,6 +236,11 @@ import { Label } from "@/components/ui/label"
       { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the switch is toggled." },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the switch." },
     ],
+    changes: [
+      "Added size prop (sm, default) — not in stock shadcn",
+      "Added shadow-xs on track",
+      "Dark mode-specific thumb styling",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/switch
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
@@ -208,6 +254,11 @@ import { Label } from "@/components/ui/label"
   Table: {
     props: [
       { name: "children", type: "ReactNode", description: "TableHeader and TableBody elements." },
+    ],
+    changes: [
+      "Wrapped in a container div with overflow-x-auto",
+      "TableFooter uses bg-muted/50 instead of bg-primary",
+      "Added data-slot attributes throughout for targeting",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/table
 import {
@@ -236,6 +287,12 @@ import {
       { name: "children", type: "ReactNode", description: "Card content — use CardHeader, CardContent, CardFooter." },
       { name: "className", type: "string", description: "Additional CSS classes." },
     ],
+    changes: [
+      "Theme-aware border-radius: none (Edge), lg (Core), xl (Flux/default)",
+      "Shadow only applied when theme is not Flux",
+      "Added CardAction sub-component for positioned header actions",
+      "CardHeader uses @container query with grid layout",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/card
 import {
   Card, CardContent, CardDescription,
@@ -259,6 +316,11 @@ import {
   Alert: {
     props: [
       { name: "variant", type: '"default" | "destructive"', default: '"default"', description: "Visual style of the alert." },
+    ],
+    changes: [
+      "Grid layout adapts columns based on SVG presence",
+      "AlertDescription uses col-start-2 for icon alignment",
+      "Destructive variant has specific icon/text color treatment",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/alert
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -284,6 +346,10 @@ import { Info } from "lucide-react"
     props: [
       { name: "value", type: "number", default: "0", description: "Current progress value (0–100)." },
     ],
+    changes: [
+      "Uses semantic primary color token for indicator",
+      "Simplified implementation with inline transform for value",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/progress
 import { Progress } from "@/components/ui/progress"
 
@@ -294,8 +360,13 @@ import { Progress } from "@/components/ui/progress"
 
   Dialog: {
     props: [
-      { name: "open", type: "boolean", description: "Controlled open state." },
+      { name: "open", type: "boolean", default: "false", description: "Controlled open state." },
       { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes." },
+    ],
+    changes: [
+      "Added showCloseButton prop to DialogContent and DialogFooter",
+      "Built-in close button with X icon (togglable)",
+      "Custom shadow-lg on content",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/dialog
 import {
@@ -328,6 +399,11 @@ import {
       { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes." },
       { name: "side", type: '"top" | "right" | "bottom" | "left"', default: '"right"', description: "Side from which the sheet slides in." },
     ],
+    changes: [
+      "Added showCloseButton prop for togglable close button",
+      "Conditional border placement based on side prop",
+      "Custom slide animations per side direction",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/sheet
 import {
   Sheet, SheetContent, SheetDescription,
@@ -355,6 +431,11 @@ import {
       { name: "open", type: "boolean", description: "Controlled open state." },
       { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes." },
     ],
+    changes: [
+      'Added variant prop on DropdownMenuItem ("default" | "destructive")',
+      "Destructive items have custom focus state colors",
+      "DropdownMenuSubTrigger auto-appends ChevronRight icon",
+    ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/dropdown-menu
 import {
   DropdownMenu, DropdownMenuContent,
@@ -380,7 +461,12 @@ import {
 
   Tooltip: {
     props: [
-      { name: "delayDuration", type: "number", default: "200", description: "Delay in ms before the tooltip appears." },
+      { name: "delayDuration", type: "number", default: "0", description: "Delay in ms before the tooltip appears." },
+    ],
+    changes: [
+      "Default delayDuration changed to 0 (stock is 200ms)",
+      "Default sideOffset changed to 0",
+      "Custom arrow styling with fill and rotation",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/tooltip
 import {
@@ -403,6 +489,11 @@ import {
   Breadcrumb: {
     props: [
       { name: "separator", type: "ReactNode", description: "Custom separator element between items." },
+    ],
+    changes: [
+      "Added BreadcrumbEllipsis with MoreHorizontal icon",
+      "BreadcrumbSeparator uses ChevronRight icon",
+      "All sub-components have data-slot attributes for targeting",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/breadcrumb
 import {
@@ -433,6 +524,12 @@ import {
       { name: "value", type: "string", description: "Controlled active tab value." },
       { name: "onValueChange", type: "(value: string) => void", description: "Called when the active tab changes." },
       { name: "variant", type: '"default" | "line"', default: '"default"', description: "Visual variant of the tab list (set on TabsList)." },
+    ],
+    changes: [
+      'Added variant prop on TabsList ("default" | "line")',
+      "Line variant uses bottom/right border indicator via ::after pseudo-element",
+      "Supports vertical orientation with custom layouts",
+      "Enhanced dark mode styling on triggers",
     ],
     code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/tabs
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"

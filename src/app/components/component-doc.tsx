@@ -12,6 +12,7 @@ export interface PropDef {
 export interface ComponentDocData {
   props: PropDef[];
   code: string;
+  changes?: string[];
 }
 
 function renderCodeWithLinks(code: string) {
@@ -34,7 +35,7 @@ function renderCodeWithLinks(code: string) {
   );
 }
 
-export function ComponentDoc({ props, code }: ComponentDocData) {
+export function ComponentDoc({ props, code, changes }: ComponentDocData) {
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -99,16 +100,36 @@ export function ComponentDoc({ props, code }: ComponentDocData) {
         </button>
 
         {showCode && (
-          <div className="relative mt-2">
-            <button
-              onClick={handleCopy}
-              className="absolute right-2 top-2 rounded-md border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {copied ? "Copied!" : "Copy"}
-            </button>
-            <pre className="overflow-x-auto rounded-lg border bg-muted/30 p-4 text-xs leading-relaxed">
-              <code className="font-mono">{renderCodeWithLinks(code)}</code>
-            </pre>
+          <div className="mt-2 space-y-3">
+            {changes && changes.length > 0 && (
+              <div className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-3">
+                <p className="text-xs font-semibold text-foreground mb-1.5">
+                  What changed from base shadcn
+                </p>
+                <ul className="space-y-1">
+                  {changes.map((change, i) => (
+                    <li
+                      key={i}
+                      className="text-xs text-muted-foreground flex gap-2"
+                    >
+                      <span className="text-primary shrink-0">&#8226;</span>
+                      {change}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div className="relative">
+              <button
+                onClick={handleCopy}
+                className="absolute right-2 top-2 rounded-md border bg-background px-2 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {copied ? "Copied!" : "Copy"}
+              </button>
+              <pre className="overflow-x-auto rounded-lg border bg-muted/30 p-4 text-xs leading-relaxed">
+                <code className="font-mono">{renderCodeWithLinks(code)}</code>
+              </pre>
+            </div>
           </div>
         )}
       </div>
