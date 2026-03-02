@@ -518,6 +518,272 @@ import {
 </Breadcrumb>`,
   },
 
+  Accordion: {
+    props: [
+      { name: "type", type: '"single" | "multiple"', default: '"single"', description: "Whether one or multiple items can be opened." },
+      { name: "collapsible", type: "boolean", default: "false", description: "Allow closing all items (single type only)." },
+      { name: "value", type: "string | string[]", description: "Controlled open item(s)." },
+      { name: "onValueChange", type: "(value: string | string[]) => void", description: "Called when open items change." },
+    ],
+    changes: [
+      "Added cursor-pointer to AccordionTrigger",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/accordion
+import {
+  Accordion, AccordionContent,
+  AccordionItem, AccordionTrigger,
+} from "@/components/ui/accordion"
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Section Title</AccordionTrigger>
+    <AccordionContent>
+      Content goes here.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>`,
+  },
+
+  AlertDialog: {
+    props: [
+      { name: "open", type: "boolean", description: "Controlled open state." },
+      { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes." },
+    ],
+    changes: [
+      "Action and Cancel buttons wrap with Button component for consistent styling",
+      "Added AlertDialogMedia sub-component for icon/image placement",
+      "Added size prop on AlertDialogContent (default | sm)",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/alert-dialog
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Delete</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>`,
+  },
+
+  RadioGroup: {
+    props: [
+      { name: "value", type: "string", description: "Controlled selected value." },
+      { name: "onValueChange", type: "(value: string) => void", description: "Called when selection changes." },
+      { name: "defaultValue", type: "string", description: "Default value for uncontrolled usage." },
+      { name: "disabled", type: "boolean", default: "false", description: "Disables the entire group." },
+    ],
+    changes: [
+      "Added cursor-pointer to RadioGroupItem",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/radio-group
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+
+<RadioGroup defaultValue="option-1">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-1" id="r1" />
+    <Label htmlFor="r1">Option 1</Label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-2" id="r2" />
+    <Label htmlFor="r2">Option 2</Label>
+  </div>
+</RadioGroup>`,
+  },
+
+  Popover: {
+    props: [
+      { name: "open", type: "boolean", description: "Controlled open state." },
+      { name: "onOpenChange", type: "(open: boolean) => void", description: "Called when open state changes." },
+    ],
+    changes: [
+      "Added PopoverHeader, PopoverTitle, and PopoverDescription sub-components",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/popover
+import {
+  Popover, PopoverContent, PopoverTrigger,
+} from "@/components/ui/popover"
+
+<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <p className="text-sm">Popover content goes here.</p>
+  </PopoverContent>
+</Popover>`,
+  },
+
+  Sonner: {
+    props: [
+      { name: "position", type: '"top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"', default: '"bottom-right"', description: "Position of the toast container." },
+      { name: "richColors", type: "boolean", default: "false", description: "Use colored backgrounds for different toast types." },
+    ],
+    changes: [
+      "Custom icons for success, info, warning, error, and loading states",
+      "Uses design system CSS variables for colors and border-radius",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/sonner
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
+
+// Add <Toaster /> to your layout
+<Toaster />
+
+// Trigger toasts from anywhere
+toast("Default notification")
+toast.success("Success!")
+toast.error("Something went wrong")
+toast.info("FYI...")
+toast.warning("Be careful")`,
+  },
+
+  Skeleton: {
+    props: [
+      { name: "className", type: "string", description: "Additional CSS classes to control size and shape." },
+    ],
+    changes: [
+      "No significant changes — uses stock shadcn implementation",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/skeleton
+import { Skeleton } from "@/components/ui/skeleton"
+
+<Skeleton className="h-4 w-[250px]" />
+<Skeleton className="h-12 w-12 rounded-full" />
+<Skeleton className="h-[125px] w-full rounded-xl" />`,
+  },
+
+  ScrollArea: {
+    props: [
+      { name: "className", type: "string", description: "Additional CSS classes." },
+      { name: "children", type: "ReactNode", description: "Scrollable content." },
+    ],
+    changes: [
+      "No significant changes — uses stock shadcn implementation",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/scroll-area
+import { ScrollArea } from "@/components/ui/scroll-area"
+
+<ScrollArea className="h-72 w-full rounded-md border p-4">
+  {/* Long content here */}
+</ScrollArea>`,
+  },
+
+  Slider: {
+    props: [
+      { name: "value", type: "number[]", description: "Controlled value(s)." },
+      { name: "onValueChange", type: "(value: number[]) => void", description: "Called when value changes." },
+      { name: "defaultValue", type: "number[]", description: "Default value(s) for uncontrolled usage." },
+      { name: "min", type: "number", default: "0", description: "Minimum value." },
+      { name: "max", type: "number", default: "100", description: "Maximum value." },
+      { name: "step", type: "number", default: "1", description: "Step increment." },
+    ],
+    changes: [
+      "Added cursor-pointer to slider thumb",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/slider
+import { Slider } from "@/components/ui/slider"
+
+<Slider defaultValue={[50]} max={100} step={1} />
+
+{/* Range slider */}
+<Slider defaultValue={[25, 75]} max={100} step={1} />`,
+  },
+
+  Pagination: {
+    props: [
+      { name: "children", type: "ReactNode", description: "PaginationContent with PaginationItems." },
+    ],
+    changes: [
+      "PaginationLink uses buttonVariants for consistent styling with cursor-pointer",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/pagination
+import {
+  Pagination, PaginationContent, PaginationEllipsis,
+  PaginationItem, PaginationLink,
+  PaginationNext, PaginationPrevious,
+} from "@/components/ui/pagination"
+
+<Pagination>
+  <PaginationContent>
+    <PaginationItem><PaginationPrevious href="#" /></PaginationItem>
+    <PaginationItem><PaginationLink href="#">1</PaginationLink></PaginationItem>
+    <PaginationItem><PaginationLink href="#" isActive>2</PaginationLink></PaginationItem>
+    <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
+    <PaginationItem><PaginationEllipsis /></PaginationItem>
+    <PaginationItem><PaginationNext href="#" /></PaginationItem>
+  </PaginationContent>
+</Pagination>`,
+  },
+
+  Toggle: {
+    props: [
+      { name: "variant", type: '"default" | "outline"', default: '"default"', description: "Visual style of the toggle." },
+      { name: "size", type: '"default" | "sm" | "lg"', default: '"default"', description: "Size of the toggle." },
+      { name: "pressed", type: "boolean", description: "Controlled pressed state." },
+      { name: "onPressedChange", type: "(pressed: boolean) => void", description: "Called when pressed state changes." },
+    ],
+    changes: [
+      "Added cursor-pointer to toggle base styles",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/toggle
+import { Toggle } from "@/components/ui/toggle"
+import { Bold } from "lucide-react"
+
+<Toggle aria-label="Toggle bold">
+  <Bold className="h-4 w-4" />
+</Toggle>
+
+<Toggle variant="outline" aria-label="Toggle bold">
+  <Bold className="h-4 w-4" />
+</Toggle>`,
+  },
+
+  ToggleGroup: {
+    props: [
+      { name: "type", type: '"single" | "multiple"', description: "Whether one or multiple items can be selected." },
+      { name: "value", type: "string | string[]", description: "Controlled selected value(s)." },
+      { name: "onValueChange", type: "(value: string | string[]) => void", description: "Called when selection changes." },
+      { name: "variant", type: '"default" | "outline"', default: '"default"', description: "Visual style inherited by items." },
+      { name: "size", type: '"default" | "sm" | "lg"', default: '"default"', description: "Size inherited by items." },
+    ],
+    changes: [
+      "Inherits cursor-pointer from toggleVariants",
+      "Added spacing prop for gap between items",
+    ],
+    code: `// Based on shadcn/ui — https://ui.shadcn.com/docs/components/toggle-group
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { Bold, Italic, Underline } from "lucide-react"
+
+<ToggleGroup type="multiple">
+  <ToggleGroupItem value="bold" aria-label="Toggle bold">
+    <Bold className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="italic" aria-label="Toggle italic">
+    <Italic className="h-4 w-4" />
+  </ToggleGroupItem>
+  <ToggleGroupItem value="underline" aria-label="Toggle underline">
+    <Underline className="h-4 w-4" />
+  </ToggleGroupItem>
+</ToggleGroup>`,
+  },
+
   Tabs: {
     props: [
       { name: "defaultValue", type: "string", description: "Default active tab value." },

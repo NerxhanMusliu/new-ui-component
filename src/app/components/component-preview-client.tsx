@@ -46,11 +46,42 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Slider } from "@/components/ui/slider";
+import { Toggle } from "@/components/ui/toggle";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { toast } from "sonner";
+import {
+  Bold,
   Copy,
   Edit,
+  Italic,
   MoreHorizontal,
   Share,
+  Strikethrough,
   Trash2,
+  Underline,
 } from "lucide-react";
 
 export function DialogDemo() {
@@ -248,6 +279,216 @@ export function SwitchDemo() {
           <p className="text-sm text-muted-foreground">Automatically save changes</p>
         </div>
         <Switch checked={autoSave} onCheckedChange={setAutoSave} />
+      </div>
+    </div>
+  );
+}
+
+export function AccordionDemo() {
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>What is a Trial Balance?</AccordionTrigger>
+        <AccordionContent>
+          A trial balance is a bookkeeping worksheet listing the balances of all
+          ledgers compiled into debit and credit columns. It serves as a
+          checkpoint to ensure total debits equal total credits.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>How are book adjustments handled?</AccordionTrigger>
+        <AccordionContent>
+          Book adjustments are entered as journal entries that modify the
+          unadjusted balance. Each adjustment requires supporting documentation
+          and partner approval before it is applied.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>What is the review workflow?</AccordionTrigger>
+        <AccordionContent>
+          Accounts move through Pending, In Review, and Approved/Rejected
+          statuses. Reviewers can add notes, request changes, or approve each
+          account individually.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+
+export function AlertDialogDemo() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive">Delete Account</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This will permanently delete the account and all associated
+            adjustments. This action cannot be undone.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction variant="destructive">
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+export function RadioGroupDemo() {
+  return (
+    <RadioGroup defaultValue="book">
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="book" id="r1" />
+        <Label htmlFor="r1">Book Adjustment</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="tax-reclass" id="r2" />
+        <Label htmlFor="r2">Tax Reclassification</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="permanent" id="r3" />
+        <Label htmlFor="r3">Permanent Difference</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="temporary" id="r4" />
+        <Label htmlFor="r4">Temporary Difference</Label>
+      </div>
+    </RadioGroup>
+  );
+}
+
+export function PopoverDemo() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Open Popover</Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80">
+        <div className="grid gap-4">
+          <div className="space-y-1">
+            <h4 className="font-medium text-sm">Account Details</h4>
+            <p className="text-sm text-muted-foreground">
+              Quick view of account information.
+            </p>
+          </div>
+          <div className="grid gap-2">
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label className="text-xs text-muted-foreground">Account</Label>
+              <span className="col-span-2 text-sm">10000 - BOA Chk 4837</span>
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label className="text-xs text-muted-foreground">Entity</Label>
+              <span className="col-span-2 text-sm">Baker Tilly LLC</span>
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label className="text-xs text-muted-foreground">Balance</Label>
+              <span className="col-span-2 text-sm font-medium">$18,500</span>
+            </div>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export function SonnerDemo() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Button variant="outline" onClick={() => toast("Adjustment saved successfully.")}>
+        Default
+      </Button>
+      <Button variant="outline" onClick={() => toast.success("Account approved and locked.")}>
+        Success
+      </Button>
+      <Button variant="outline" onClick={() => toast.error("Failed to save adjustment.")}>
+        Error
+      </Button>
+      <Button variant="outline" onClick={() => toast.info("Review deadline is March 15.")}>
+        Info
+      </Button>
+      <Button variant="outline" onClick={() => toast.warning("2 accounts still need review.")}>
+        Warning
+      </Button>
+    </div>
+  );
+}
+
+export function SliderDemo() {
+  const [value, setValue] = React.useState([50]);
+  const [range, setRange] = React.useState([25, 75]);
+
+  return (
+    <div className="space-y-8 max-w-sm">
+      <div className="space-y-3">
+        <div className="flex justify-between text-sm">
+          <Label>Single value</Label>
+          <span className="text-muted-foreground">{value[0]}%</span>
+        </div>
+        <Slider value={value} onValueChange={setValue} max={100} step={1} />
+      </div>
+      <Separator />
+      <div className="space-y-3">
+        <div className="flex justify-between text-sm">
+          <Label>Range</Label>
+          <span className="text-muted-foreground">
+            {range[0]} – {range[1]}
+          </span>
+        </div>
+        <Slider value={range} onValueChange={setRange} max={100} step={1} />
+      </div>
+    </div>
+  );
+}
+
+export function ToggleDemo() {
+  return (
+    <div className="space-y-6">
+      <div>
+        <p className="mb-3 text-sm text-muted-foreground">Individual toggles</p>
+        <div className="flex items-center gap-2">
+          <Toggle aria-label="Toggle bold">
+            <Bold className="h-4 w-4" />
+          </Toggle>
+          <Toggle aria-label="Toggle italic">
+            <Italic className="h-4 w-4" />
+          </Toggle>
+          <Toggle variant="outline" aria-label="Toggle underline">
+            <Underline className="h-4 w-4" />
+          </Toggle>
+        </div>
+      </div>
+      <Separator />
+      <div>
+        <p className="mb-3 text-sm text-muted-foreground">Toggle Group (multiple)</p>
+        <ToggleGroup type="multiple">
+          <ToggleGroupItem value="bold" aria-label="Toggle bold">
+            <Bold className="h-4 w-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem value="italic" aria-label="Toggle italic">
+            <Italic className="h-4 w-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem value="underline" aria-label="Toggle underline">
+            <Underline className="h-4 w-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem value="strikethrough" aria-label="Toggle strikethrough">
+            <Strikethrough className="h-4 w-4" />
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+      <Separator />
+      <div>
+        <p className="mb-3 text-sm text-muted-foreground">Toggle Group (single, outline)</p>
+        <ToggleGroup type="single" variant="outline">
+          <ToggleGroupItem value="left">Left</ToggleGroupItem>
+          <ToggleGroupItem value="center">Center</ToggleGroupItem>
+          <ToggleGroupItem value="right">Right</ToggleGroupItem>
+        </ToggleGroup>
       </div>
     </div>
   );

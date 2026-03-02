@@ -51,7 +51,26 @@ import {
   SelectDemo,
   CheckboxDemo,
   SwitchDemo,
+  AccordionDemo,
+  AlertDialogDemo,
+  RadioGroupDemo,
+  PopoverDemo,
+  SonnerDemo,
+  SliderDemo,
+  ToggleDemo,
 } from "./component-preview-client";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Toaster } from "@/components/ui/sonner";
 import {
   ColorsSection,
   TypographySection,
@@ -60,6 +79,7 @@ import {
 } from "./design-tokens-client";
 import { ComponentDoc } from "./component-doc";
 import { componentDocs } from "./component-data";
+import { ComponentSearch } from "./component-search";
 
 const sidebarGroups = [
   {
@@ -80,6 +100,7 @@ const sidebarGroups = [
       { id: "feedback", label: "Feedback" },
       { id: "overlays", label: "Overlays" },
       { id: "navigation", label: "Navigation" },
+      { id: "layout", label: "Layout" },
     ],
   },
 ];
@@ -96,7 +117,7 @@ function ComponentShowcase({
   doc?: React.ReactNode;
 }) {
   return (
-    <div className="space-y-3 pb-10 pt-2 first:pt-0">
+    <div className="space-y-3 pb-10 pt-2 first:pt-0" data-component-name={name.toLowerCase()}>
       <div>
         <h3 className="text-sm font-semibold">{name}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
@@ -128,34 +149,14 @@ export default function ComponentsPage() {
         <div className="flex flex-1 min-h-0">
           {/* Sidebar */}
           <nav className="hidden w-56 shrink-0 overflow-y-auto border-r p-6 lg:block">
-            <div className="space-y-6">
-              {sidebarGroups.map((group) => (
-                <div key={group.heading}>
-                  <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {group.heading}
-                  </p>
-                  <ul className="space-y-1">
-                    {group.items.map((s) => (
-                      <li key={s.id}>
-                        <a
-                          href={`#${s.id}`}
-                          className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                        >
-                          {s.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <ComponentSearch sidebarGroups={sidebarGroups} />
           </nav>
 
           {/* Main content */}
           <main className="flex-1 overflow-y-auto">
             <div className="mx-auto max-w-4xl space-y-16 px-8 py-10">
             {/* ── Design Tokens ── */}
-            <section id="colors" className="space-y-8">
+            <section id="colors" data-section="colors" className="space-y-8">
               <h2 className="text-lg font-bold">Colors</h2>
               <ComponentShowcase
                 name="Color Tokens"
@@ -165,7 +166,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
             </section>
 
-            <section id="typography" className="space-y-8">
+            <section id="typography" data-section="typography" className="space-y-8">
               <h2 className="text-lg font-bold">Typography</h2>
               <ComponentShowcase
                 name="Type Scale"
@@ -175,7 +176,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
             </section>
 
-            <section id="spacing" className="space-y-8">
+            <section id="spacing" data-section="spacing" className="space-y-8">
               <h2 className="text-lg font-bold">Spacing</h2>
               <ComponentShowcase
                 name="Spacing Scale"
@@ -185,7 +186,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
             </section>
 
-            <section id="radius" className="space-y-8">
+            <section id="radius" data-section="radius" className="space-y-8">
               <h2 className="text-lg font-bold">Radius</h2>
               <ComponentShowcase
                 name="Border Radius"
@@ -196,7 +197,7 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── General ── */}
-            <section id="general" className="space-y-10 divide-y">
+            <section id="general" data-section="general" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">General</h2>
 
               <ComponentShowcase
@@ -302,6 +303,22 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                name="Accordion"
+                description="Collapsible content sections."
+                doc={<ComponentDoc {...componentDocs.Accordion} />}
+              >
+                <AccordionDemo />
+              </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Toggle / Toggle Group"
+                description="Toggle buttons for on/off states and grouped selections."
+                doc={<ComponentDoc {...componentDocs.Toggle} />}
+              >
+                <ToggleDemo />
+              </ComponentShowcase>
+
+              <ComponentShowcase
                 name="Separator"
                 description="Visual dividers between content."
                 doc={<ComponentDoc {...componentDocs.Separator} />}
@@ -330,7 +347,7 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Form Controls ── */}
-            <section id="form-controls" className="space-y-10 divide-y">
+            <section id="form-controls" data-section="form-controls" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Form Controls</h2>
 
               <ComponentShowcase
@@ -407,10 +424,26 @@ export default function ComponentsPage() {
                   <SwitchDemo />
                 </div>
               </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Radio Group"
+                description="Single-selection radio button groups."
+                doc={<ComponentDoc {...componentDocs.RadioGroup} />}
+              >
+                <RadioGroupDemo />
+              </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Slider"
+                description="Range slider inputs for numeric values."
+                doc={<ComponentDoc {...componentDocs.Slider} />}
+              >
+                <SliderDemo />
+              </ComponentShowcase>
             </section>
 
             {/* ── Data Display ── */}
-            <section id="data-display" className="space-y-10 divide-y">
+            <section id="data-display" data-section="data-display" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Data Display</h2>
 
               <ComponentShowcase
@@ -552,7 +585,7 @@ export default function ComponentsPage() {
             </section>
 
             {/* ── Feedback ── */}
-            <section id="feedback" className="space-y-10 divide-y">
+            <section id="feedback" data-section="feedback" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Feedback</h2>
 
               <ComponentShowcase
@@ -602,10 +635,35 @@ export default function ComponentsPage() {
                   ))}
                 </div>
               </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Skeleton"
+                description="Loading placeholder animations."
+                doc={<ComponentDoc {...componentDocs.Skeleton} />}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                  </div>
+                  <Skeleton className="h-[125px] w-full rounded-xl" />
+                </div>
+              </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Toast (Sonner)"
+                description="Toast notifications for user feedback."
+                doc={<ComponentDoc {...componentDocs.Sonner} />}
+              >
+                <SonnerDemo />
+              </ComponentShowcase>
             </section>
 
             {/* ── Overlays ── */}
-            <section id="overlays" className="space-y-10 divide-y">
+            <section id="overlays" data-section="overlays" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Overlays</h2>
 
               <ComponentShowcase
@@ -639,10 +697,26 @@ export default function ComponentsPage() {
               >
                 <TooltipDemo />
               </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Alert Dialog"
+                description="Modal confirmation dialogs for destructive actions."
+                doc={<ComponentDoc {...componentDocs.AlertDialog} />}
+              >
+                <AlertDialogDemo />
+              </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Popover"
+                description="Floating content anchored to a trigger."
+                doc={<ComponentDoc {...componentDocs.Popover} />}
+              >
+                <PopoverDemo />
+              </ComponentShowcase>
             </section>
 
             {/* ── Navigation ── */}
-            <section id="navigation" className="space-y-10 divide-y">
+            <section id="navigation" data-section="navigation" className="space-y-10 divide-y">
               <h2 className="text-lg font-bold">Navigation</h2>
 
               <ComponentShowcase
@@ -766,11 +840,72 @@ export default function ComponentsPage() {
                   </div>
                 </div>
               </ComponentShowcase>
+
+              <ComponentShowcase
+                name="Pagination"
+                description="Page navigation controls for paginated data."
+                doc={<ComponentDoc {...componentDocs.Pagination} />}
+              >
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious href="#" />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" isActive>
+                        2
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">3</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">12</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationNext href="#" />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </ComponentShowcase>
+            </section>
+
+            {/* ── Layout ── */}
+            <section id="layout" data-section="layout" className="space-y-10 divide-y">
+              <h2 className="text-lg font-bold">Layout</h2>
+
+              <ComponentShowcase
+                name="Scroll Area"
+                description="Custom scrollbar container for overflowing content."
+                doc={<ComponentDoc {...componentDocs.ScrollArea} />}
+              >
+                <ScrollArea className="h-48 w-full rounded-md border p-4">
+                  <div className="space-y-4">
+                    {Array.from({ length: 20 }, (_, i) => (
+                      <div key={i} className="flex items-center justify-between border-b pb-2 last:border-0">
+                        <span className="text-sm">
+                          Account {10000 + i * 5} — Line item {i + 1}
+                        </span>
+                        <span className="text-sm text-muted-foreground tabular-nums">
+                          ${((i + 1) * 1250).toLocaleString()}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </ComponentShowcase>
             </section>
             </div>
           </main>
         </div>
       </StyleToggleProvider>
+      <Toaster />
     </div>
   );
 }
