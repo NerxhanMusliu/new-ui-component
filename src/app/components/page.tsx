@@ -7,6 +7,7 @@ import {
   AlertCircle,
   Info,
   TriangleAlert,
+  CircleCheck,
 } from "lucide-react";
 import { StyleToggleProvider } from "./theme-provider";
 import { Button } from "@/components/ui/button";
@@ -94,30 +95,96 @@ const sidebarGroups = [
   {
     heading: "Components",
     items: [
-      { id: "general", label: "General" },
-      { id: "form-controls", label: "Form Controls" },
-      { id: "data-display", label: "Data Display" },
-      { id: "feedback", label: "Feedback" },
-      { id: "overlays", label: "Overlays" },
-      { id: "navigation", label: "Navigation" },
-      { id: "layout", label: "Layout" },
+      {
+        id: "general",
+        label: "General",
+        children: [
+          { id: "comp-button", label: "Button" },
+          { id: "comp-badge", label: "Badge" },
+          { id: "comp-avatar", label: "Avatar" },
+          { id: "comp-accordion", label: "Accordion" },
+          { id: "comp-toggle", label: "Toggle / Toggle Group" },
+          { id: "comp-separator", label: "Separator" },
+        ],
+      },
+      {
+        id: "form-controls",
+        label: "Form Controls",
+        children: [
+          { id: "comp-input", label: "Input" },
+          { id: "comp-textarea", label: "Textarea" },
+          { id: "comp-select", label: "Select" },
+          { id: "comp-checkbox", label: "Checkbox" },
+          { id: "comp-switch", label: "Switch" },
+          { id: "comp-radio-group", label: "Radio Group" },
+          { id: "comp-slider", label: "Slider" },
+        ],
+      },
+      {
+        id: "data-display",
+        label: "Data Display",
+        children: [
+          { id: "comp-table", label: "Table" },
+          { id: "comp-card", label: "Card" },
+        ],
+      },
+      {
+        id: "feedback",
+        label: "Feedback",
+        children: [
+          { id: "comp-alert", label: "Alert" },
+          { id: "comp-progress", label: "Progress" },
+          { id: "comp-skeleton", label: "Skeleton" },
+          { id: "comp-sonner", label: "Toast (Sonner)" },
+        ],
+      },
+      {
+        id: "overlays",
+        label: "Overlays",
+        children: [
+          { id: "comp-dialog", label: "Dialog" },
+          { id: "comp-sheet", label: "Sheet" },
+          { id: "comp-dropdown-menu", label: "Dropdown Menu" },
+          { id: "comp-tooltip", label: "Tooltip" },
+          { id: "comp-alert-dialog", label: "Alert Dialog" },
+          { id: "comp-popover", label: "Popover" },
+        ],
+      },
+      {
+        id: "navigation",
+        label: "Navigation",
+        children: [
+          { id: "comp-breadcrumb", label: "Breadcrumb" },
+          { id: "comp-tabs", label: "Tabs" },
+          { id: "comp-pagination", label: "Pagination" },
+        ],
+      },
+      {
+        id: "layout",
+        label: "Layout",
+        children: [
+          { id: "comp-scroll-area", label: "Scroll Area" },
+        ],
+      },
     ],
   },
 ];
 
 function ComponentShowcase({
+  id,
   name,
   description,
   children,
   doc,
 }: {
+  id?: string;
   name: string;
   description: string;
   children: React.ReactNode;
   doc?: React.ReactNode;
 }) {
   return (
-    <div className="space-y-3 pb-10 pt-2 first:pt-0" data-component-name={name.toLowerCase()}>
+    <div id={id} className="space-y-3 pb-10 pt-2 first:pt-0" data-component-name={name.toLowerCase()}>
       <div>
         <h3 className="text-sm font-semibold">{name}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
@@ -130,7 +197,7 @@ function ComponentShowcase({
 
 export default function ComponentsPage() {
   return (
-    <div className="flex h-screen flex-col bg-background font-sans">
+    <div className="flex h-screen flex-col overflow-hidden bg-background font-sans">
       {/* Header */}
       <header className="shrink-0 z-50 flex h-16 items-center justify-between bg-header px-6 text-white">
         <div className="flex items-center gap-4">
@@ -153,7 +220,7 @@ export default function ComponentsPage() {
           </nav>
 
           {/* Main content */}
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="mx-auto max-w-4xl space-y-16 px-8 py-10">
             {/* ── Design Tokens ── */}
             <section id="colors" data-section="colors" className="space-y-8">
@@ -201,6 +268,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">General</h2>
 
               <ComponentShowcase
+                id="comp-button"
                 name="Button"
                 description="Primary actions and interactions."
                 doc={<ComponentDoc {...componentDocs.Button} />}
@@ -234,6 +302,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-badge"
                 name="Badge"
                 description="Status indicators and labels."
                 doc={<ComponentDoc {...componentDocs.Badge} />}
@@ -263,6 +332,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-avatar"
                 name="Avatar"
                 description="User representations with initials and grouping."
                 doc={<ComponentDoc {...componentDocs.Avatar} />}
@@ -303,6 +373,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-accordion"
                 name="Accordion"
                 description="Collapsible content sections."
                 doc={<ComponentDoc {...componentDocs.Accordion} />}
@@ -311,6 +382,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-toggle"
                 name="Toggle / Toggle Group"
                 description="Toggle buttons for on/off states and grouped selections."
                 doc={<ComponentDoc {...componentDocs.Toggle} />}
@@ -319,6 +391,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-separator"
                 name="Separator"
                 description="Visual dividers between content."
                 doc={<ComponentDoc {...componentDocs.Separator} />}
@@ -351,6 +424,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Form Controls</h2>
 
               <ComponentShowcase
+                id="comp-input"
                 name="Input"
                 description="Text input fields with variants."
                 doc={<ComponentDoc {...componentDocs.Input} />}
@@ -386,6 +460,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-textarea"
                 name="Textarea"
                 description="Multi-line text input."
                 doc={<ComponentDoc {...componentDocs.Textarea} />}
@@ -400,6 +475,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-select"
                 name="Select"
                 description="Dropdown selection menus."
                 doc={<ComponentDoc {...componentDocs.Select} />}
@@ -408,6 +484,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-checkbox"
                 name="Checkbox"
                 description="Multi-select checkboxes with labels."
                 doc={<ComponentDoc {...componentDocs.Checkbox} />}
@@ -416,6 +493,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-switch"
                 name="Switch"
                 description="Toggle switches for boolean settings."
                 doc={<ComponentDoc {...componentDocs.Switch} />}
@@ -426,6 +504,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-radio-group"
                 name="Radio Group"
                 description="Single-selection radio button groups."
                 doc={<ComponentDoc {...componentDocs.RadioGroup} />}
@@ -434,6 +513,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-slider"
                 name="Slider"
                 description="Range slider inputs for numeric values."
                 doc={<ComponentDoc {...componentDocs.Slider} />}
@@ -447,6 +527,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Data Display</h2>
 
               <ComponentShowcase
+                id="comp-table"
                 name="Table"
                 description="Structured data in rows and columns."
                 doc={<ComponentDoc {...componentDocs.Table} />}
@@ -530,6 +611,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-card"
                 name="Card"
                 description="Content containers with optional headers and footers."
                 doc={<ComponentDoc {...componentDocs.Card} />}
@@ -589,20 +671,35 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Feedback</h2>
 
               <ComponentShowcase
+                id="comp-alert"
                 name="Alert"
                 description="Contextual messages for user feedback."
                 doc={<ComponentDoc {...componentDocs.Alert} />}
               >
                 <div className="space-y-4">
-                  <Alert>
+                  <Alert variant="info">
                     <Info className="h-4 w-4" />
                     <AlertTitle>Information</AlertTitle>
                     <AlertDescription>
                       Your tax return has been submitted for review.
                     </AlertDescription>
                   </Alert>
-                  <Alert variant="destructive">
+                  <Alert variant="success">
+                    <CircleCheck className="h-4 w-4" />
+                    <AlertTitle>Success</AlertTitle>
+                    <AlertDescription>
+                      Changes have been saved successfully.
+                    </AlertDescription>
+                  </Alert>
+                  <Alert variant="warning">
                     <TriangleAlert className="h-4 w-4" />
+                    <AlertTitle>Warning</AlertTitle>
+                    <AlertDescription>
+                      Your session is about to expire. Save your work.
+                    </AlertDescription>
+                  </Alert>
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>
                       Unable to save changes. Please check required fields.
@@ -612,6 +709,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-progress"
                 name="Progress"
                 description="Visual progress indicators."
                 doc={<ComponentDoc {...componentDocs.Progress} />}
@@ -637,6 +735,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-skeleton"
                 name="Skeleton"
                 description="Loading placeholder animations."
                 doc={<ComponentDoc {...componentDocs.Skeleton} />}
@@ -654,6 +753,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-sonner"
                 name="Toast (Sonner)"
                 description="Toast notifications for user feedback."
                 doc={<ComponentDoc {...componentDocs.Sonner} />}
@@ -667,6 +767,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Overlays</h2>
 
               <ComponentShowcase
+                id="comp-dialog"
                 name="Dialog"
                 description="Modal dialog for focused interactions."
                 doc={<ComponentDoc {...componentDocs.Dialog} />}
@@ -675,6 +776,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-sheet"
                 name="Sheet"
                 description="Slide-out panel for secondary content."
                 doc={<ComponentDoc {...componentDocs.Sheet} />}
@@ -683,6 +785,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-dropdown-menu"
                 name="Dropdown Menu"
                 description="Contextual action menus."
                 doc={<ComponentDoc {...componentDocs.DropdownMenu} />}
@@ -691,6 +794,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-tooltip"
                 name="Tooltip"
                 description="Informational popups on hover."
                 doc={<ComponentDoc {...componentDocs.Tooltip} />}
@@ -699,6 +803,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-alert-dialog"
                 name="Alert Dialog"
                 description="Modal confirmation dialogs for destructive actions."
                 doc={<ComponentDoc {...componentDocs.AlertDialog} />}
@@ -707,6 +812,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-popover"
                 name="Popover"
                 description="Floating content anchored to a trigger."
                 doc={<ComponentDoc {...componentDocs.Popover} />}
@@ -720,6 +826,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Navigation</h2>
 
               <ComponentShowcase
+                id="comp-breadcrumb"
                 name="Breadcrumb"
                 description="Hierarchical navigation showing the current page location."
                 doc={<ComponentDoc {...componentDocs.Breadcrumb} />}
@@ -774,6 +881,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-tabs"
                 name="Tabs"
                 description="Tabbed navigation with default and line variants."
                 doc={<ComponentDoc {...componentDocs.Tabs} />}
@@ -842,6 +950,7 @@ export default function ComponentsPage() {
               </ComponentShowcase>
 
               <ComponentShowcase
+                id="comp-pagination"
                 name="Pagination"
                 description="Page navigation controls for paginated data."
                 doc={<ComponentDoc {...componentDocs.Pagination} />}
@@ -881,6 +990,7 @@ export default function ComponentsPage() {
               <h2 className="text-lg font-bold">Layout</h2>
 
               <ComponentShowcase
+                id="comp-scroll-area"
                 name="Scroll Area"
                 description="Custom scrollbar container for overflowing content."
                 doc={<ComponentDoc {...componentDocs.ScrollArea} />}

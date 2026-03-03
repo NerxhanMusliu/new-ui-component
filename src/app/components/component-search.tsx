@@ -1,13 +1,28 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Search } from "lucide-react";
+import { Search, Plus, Minus } from "lucide-react";
 import { Input } from "@/components/ui/input";
+
+type SidebarChild = { id: string; label: string };
+
+type SidebarItem = {
+  id: string;
+  label: string;
+  children?: SidebarChild[];
+};
 
 type SidebarGroup = {
   heading: string;
-  items: { id: string; label: string }[];
+  items: SidebarItem[];
 };
+
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
 
 export function ComponentSearch({
   sidebarGroups,
@@ -15,11 +30,16 @@ export function ComponentSearch({
   sidebarGroups: SidebarGroup[];
 }) {
   const [query, setQuery] = useState("");
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   // Flat list of all sidebar items for filtering
   const allItems = sidebarGroups.flatMap((g) =>
     g.items.map((item) => ({ ...item, heading: g.heading }))
   );
+
+  const toggleExpanded = (id: string) => {
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const handleSearch = useCallback(
     (value: string) => {
@@ -66,7 +86,9 @@ export function ComponentSearch({
           }
           return;
         }
-        const allHidden = Array.from(children).every((c) => c.hasAttribute("hidden"));
+        const allHidden = Array.from(children).every((c) =>
+          c.hasAttribute("hidden")
+        );
         if (allHidden) {
           el.setAttribute("hidden", "");
         } else {
@@ -79,20 +101,44 @@ export function ComponentSearch({
 
   const q = query.toLowerCase().trim();
 
-  // Filter sidebar items — keep a section if its label matches OR if it has
-  // visible showcases in the DOM (i.e. a component name matched the query)
+  // When searching, filter items and their children; also auto-expand matching categories
   const filteredGroups = q
     ? sidebarGroups
         .map((group) => ({
           ...group,
-          items: group.items.filter((item) => {
-            if (item.label.toLowerCase().includes(q)) return true;
-            // Check if the DOM section has any visible showcases
-            const sectionEl = document.querySelector(
-              `[data-section="${item.id}"]`
-            );
-            return sectionEl ? !sectionEl.hasAttribute("hidden") : false;
-          }),
+          items: group.items
+            .map((item) => {
+              // Filter children that match
+              const matchingChildren = item.children?.filter((child) =>
+                child.label.toLowerCase().includes(q)
+              );
+              const labelMatches = item.label.toLowerCase().includes(q);
+              // Check if section has visible showcases in DOM
+              const sectionEl = document.querySelector(
+                `[data-section="${item.id}"]`
+              );
+              const sectionVisible = sectionEl
+                ? !sectionEl.hasAttribute("hidden")
+                : false;
+
+              if (
+                labelMatches ||
+                (matchingChildren && matchingChildren.length > 0) ||
+                sectionVisible
+              ) {
+                return {
+                  ...item,
+                  // When searching, show only matching children (or all if category itself matches)
+                  children: labelMatches
+                    ? item.children
+                    : matchingChildren && matchingChildren.length > 0
+                      ? matchingChildren
+                      : item.children,
+                };
+              }
+              return null;
+            })
+            .filter(Boolean) as SidebarItem[],
         }))
         .filter((group) => group.items.length > 0)
     : sidebarGroups;
@@ -113,17 +159,64 @@ export function ComponentSearch({
           <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {group.heading}
           </p>
-          <ul className="space-y-1">
-            {group.items.map((s) => (
-              <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
-                  className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
+          <ul className="space-y-0.5">
+            {group.items.map((s) => {
+              const hasChildren = s.children && s.children.length > 0;
+              const isExpanded = !!q || !!expanded[s.id];
+
+              return (
+                <li key={s.id}>
+                  <div className="flex items-center">
+                    {hasChildren ? (
+                      <button
+                        type="button"
+                        onClick={() => toggleExpanded(s.id)}
+                        className="flex w-full items-center rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      >
+                        {isExpanded ? (
+                          <Minus className="mr-2 h-3 w-3 shrink-0" />
+                        ) : (
+                          <Plus className="mr-2 h-3 w-3 shrink-0" />
+                        )}
+                        <span
+                          role="link"
+                          className="flex-1 text-left cursor-pointer"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            scrollToId(s.id);
+                          }}
+                        >
+                          {s.label}
+                        </span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => scrollToId(s.id)}
+                        className="block w-full text-left rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      >
+                        {s.label}
+                      </button>
+                    )}
+                  </div>
+                  {hasChildren && isExpanded && (
+                    <ul className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
+                      {s.children!.map((child) => (
+                        <li key={child.id}>
+                          <button
+                            type="button"
+                            onClick={() => scrollToId(child.id)}
+                            className="block w-full text-left rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          >
+                            {child.label}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       ))}
